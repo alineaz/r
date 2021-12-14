@@ -1,0 +1,148 @@
+---
+title: "Palmer penguins dataset and ggplot2"
+author: "Aline Azevedo Rocha"
+date: "12/13/2021"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Introduction
+
+This document was created to document my hands-on activity learning R. 
+This is an simple R Markdown document to demonstrate the use of the R language with the Palmer Penguins dataset. The data were collected and made available by Dr. Kristen Gorman and the Palmer Station, Antarctica LTER, a member of the Long Term Ecological Research Network and contains measurements of 3 penguin species.
+
+
+#### Step 1 - Installing the required packages for this demo:
+
+```{r installing packages, echo=FALSE}
+install.packages("palmerpenguins")
+install.packages("tidyverse")
+install.packages("dplyr")
+install.packages("ggplot2")
+```
+
+
+
+#### Step 2 - Loading the installed packages: 
+
+```{r loading packages}
+library("palmerpenguins")
+library("tidyverse")
+library("dplyr")
+library("ggplot2")
+
+```
+
+
+
+#### Step 3 - Loading the dataset:
+
+```{r}
+data(package = 'palmerpenguins')
+```
+
+
+
+#### Step 4 - Getting to know the dataset with some basics commands 
+
+Checking the structure of palmerpenguins dataset:
+
+```{r using str}
+str(penguins)
+```
+
+Checking the column names of the palmperpenguins dataset: 
+
+```{r using colnames}
+colnames(penguins)
+```
+
+Data preview of palmerpenguins dataset:
+
+```{r using head}
+head(penguins)
+```
+
+### Using ggplot2 package to create data viz based on penguins measurements
+
+
+Here I am using the ggplot2 package to create a scatter plot to visualize the correlation of the flipper size of the penguins (flipper_size_mm) with its body mass (body_mass_g). 
+
+
+#### Step 1: 
+
+The following is happening in the code chunk below:
+
+Using geom_point to create a scatter plot; 
+Using mapping to specify the aesthetic (aes) based on x and y;
+Using flipper_length_mm and body_mass_g as the axis to check the correction of these two values;
+Adding a title and label descriptions:
+
+
+```{r step 1}
+ggplot(data=penguins) + 
+geom_point(mapping = aes(x=flipper_length_mm, y=body_mass_g)) +
+labs(title="Palmer Penguins", x = "Penguin's flipper lenght", y = "Penguin's size")
+```
+
+
+#### Step 2: 
+
+Adding color to distinct the color of each point based on the species value for the penguins:
+
+```{r adding color}
+ggplot(data=penguins) + 
+geom_point(mapping = aes(x=flipper_length_mm, y=body_mass_g,color=species)) +
+labs(title="Palmer Penguins", x = "Penguin's flipper lenght", y = "Penguin's size")
+```
+
+
+#### Step 3: 
+
+Using shape to distinct the shape of each point based on the species value for the penguins:
+
+```{r adding shape}
+ggplot(data=penguins) + 
+geom_point(mapping = aes(x=flipper_length_mm, y=body_mass_g,color=species,shape=species)) +
+labs(title="Palmer Penguins", x = "Penguin's flipper lenght", y = "Penguin's size")
+```
+
+
+#### Step 4: 
+
+Adding another layer to the plot, using geom_smooth to create a visible trend line based in the same axis:
+
+```{r adding another layer}
+ggplot(data=penguins) + 
+geom_point(mapping = aes(x=flipper_length_mm, y=body_mass_g,color=species,shape=species)) +
+labs(title="Palmer Penguins", x = "Penguin's flipper lenght", y = "Penguin's size") +
+geom_smooth(mapping = aes(x=flipper_length_mm, y=body_mass_g))
+
+```
+
+#### Step 5: 
+
+Adding another layer to the plot, facet wrap to create one plot for each penguin species:  
+
+```{r adding more layers}
+ggplot(data=penguins) + 
+geom_point(mapping = aes(x=flipper_length_mm, y=body_mass_g,color=species,shape=species)) +
+labs(title="Palmer Penguins", x = "Penguin's flipper lenght", y = "Penguin's size") +
+geom_smooth(mapping = aes(x=flipper_length_mm, y=body_mass_g)) +
+facet_wrap(~species)
+
+```
+
+
+
+### Learning conclusions:
+
+With this simple document, we can conclude that the bigger the penguin, the longer the flipper. :)
+
+It seems an obvious conclusion, but this document was created to show that data viz can be really useful to check correlations and tendencies when analyzing data. Also, demonstrated the use of R Markdown and the ggplot2 package. 
+
+
+
